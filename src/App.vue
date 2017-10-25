@@ -4,6 +4,9 @@
       <v-container fluid="fluid" class="text-xs-center">
         <img src="./assets/logo.png">
         <router-view/>
+        <router-link to="/unsubscribe">
+          <p class="s">Unsubscribe</p>
+        </router-link>
       </v-container>
     </v-app>
   </div>
@@ -18,9 +21,6 @@ export default {
 <style>
 #app {
   font-family: 'Roboto';
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
 }
 </style>
