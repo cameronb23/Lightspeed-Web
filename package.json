@@ -4,6 +4,10 @@
   "description": "Web app",
   "author": "cameronb23 <cbutler2018@gmail.com>",
   "private": true,
+  "engines": {
+    "node": "8.7.0",
+    "npm": "5.4.2"
+  },
   "scripts": {
     "dev": "node build/dev-server.js",
     "start": "npm run dev",
