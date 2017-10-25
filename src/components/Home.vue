@@ -72,15 +72,9 @@ export default {
     submitForm() {
       this.submitting = true;
       this.$http
-          .post('https://shielded-journey-67207.herokuapp.com/subscribe', {
+          .post('https://cors-anywhere.herokuapp.com/' + 'https://shielded-journey-67207.herokuapp.com/subscribe', {
             email: this.email,
             name: this.name,
-          }, {
-            headers: {
-              'Access-Control-Allow-Origin': 'https://lightspeed-prod.herokuapp.com',
-              'Access-Control-Allow-Methods': 'POST',
-              'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-            }
           })
           .then((response) => {
             if (!response.ok) {
