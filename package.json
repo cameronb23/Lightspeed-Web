@@ -2,7 +2,7 @@
   "name": "lightspeed-web",
   "version": "1.0.0",
   "description": "Web app",
-  "author": "cameronb23 <cbutler2018@gmail.com>",
+  "author": "cameronb23",
   "private": true,
   "engines": {
     "node": ">=8",
