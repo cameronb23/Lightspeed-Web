@@ -2,7 +2,9 @@
   <div id="app">
     <v-app dark>
       <v-container fluid="fluid" class="text-xs-center">
-        <img src="./assets/logo.png">
+        <router-link to="/">
+          <img src="/static/android-chrome-512x512.png">
+        </router-link>
         <router-view/>
         <router-link to="/unsubscribe">
           <p class="s">Unsubscribe</p>

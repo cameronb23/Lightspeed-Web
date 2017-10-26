@@ -72,7 +72,7 @@ export default {
     submitForm() {
       this.submitting = true;
       this.$http
-          .post('https://cors-anywhere.herokuapp.com/' + 'https://shielded-journey-67207.herokuapp.com/subscribe', {
+          .post('https://cors-anywhere.herokuapp.com/https://shielded-journey-67207.herokuapp.com/subscribe', {
             email: this.email,
             name: this.name,
           })
