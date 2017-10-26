@@ -3,7 +3,7 @@
     <v-app dark>
       <v-container fluid="fluid" class="text-xs-center">
         <router-link to="/">
-          <img src="/static/android-chrome-512x512.png">
+          <img src="https://s3.amazonaws.com/lightspeed-prod/static/android-chrome-512x512.png">
         </router-link>
         <router-view/>
         <router-link to="/unsubscribe">
