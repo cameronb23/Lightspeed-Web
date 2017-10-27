@@ -25,6 +25,9 @@
         </v-btn>
       </v-form>
     </v-flex>
+    <router-link to="/unsubscribe">
+      <p class="s">Unsubscribe</p>
+    </router-link>
 
     <v-snackbar
       :timeout="timeout"

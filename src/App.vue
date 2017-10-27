@@ -22,9 +22,6 @@
           </v-flex>
         </v-layout>
         <router-view/>
-        <router-link to="/unsubscribe">
-          <p class="s">Unsubscribe</p>
-        </router-link>
       </v-container>
     </v-app>
   </div>
