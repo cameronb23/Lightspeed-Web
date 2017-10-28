@@ -28,20 +28,6 @@
     <router-link to="/unsubscribe">
       <p class="s">Unsubscribe</p>
     </router-link>
-
-    <v-snackbar
-      :timeout="timeout"
-      :top="y === 'top'"
-      :bottom="y === 'bottom'"
-      :right="x === 'right'"
-      :left="x === 'left'"
-      :multi-line="mode === 'multi-line'"
-      :vertical="mode === 'vertical'"
-      v-model="snackbar"
-    >
-      {{ response }}
-      <v-btn flat color="pink" @click="snackbar = false">Close</v-btn>
-    </v-snackbar>
   </div>
 </template>
 
@@ -60,12 +46,6 @@ export default {
       status: 'In development',
       formVisible: false,
       submitting: false,
-      response: '',
-      snackbar: false,
-      y: 'top',
-      x: null,
-      mode: '',
-      timeout: 4000,
     };
   },
   methods: {
