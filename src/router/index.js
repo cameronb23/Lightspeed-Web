@@ -4,6 +4,7 @@ import Home from '@/components/Home';
 import Unsubscribe from '@/components/Unsubscribe';
 import Login from '@/components/auth/Login';
 import Register from '@/components/auth/Register';
+import Purchase from '@/components/Purchase';
 
 Vue.use(Router);
 
@@ -28,6 +29,11 @@ export default new Router({
       path: '/register',
       name: 'Register',
       component: Register,
+    },
+    {
+      path: '/purchase',
+      name: 'Purchase',
+      component: Purchase,
     },
   ],
 });

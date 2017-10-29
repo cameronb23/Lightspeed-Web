@@ -4,6 +4,7 @@ import Vue from 'vue';
 import VueResource from 'vue-resource';
 import Vuetify from 'vuetify';
 import VueLocalStorage from 'vue-localstorage';
+import VueStripeCheckout from 'vue-stripe-checkout';
 import Vuex from 'vuex';
 import App from './App';
 import router from './router';
@@ -18,6 +19,17 @@ Vue.use(Vuex);
 Vue.use(VueResource);
 Vue.use(VueLocalStorage);
 Vue.use(Vuetify);
+
+const stripeOptions = {
+  key: 'pk_test_Hhpu1idXPhutYgZx8TAc2Hpt',
+  image: 'https://s3.amazonaws.com/lightspeed-prod/static/android-chrome-512x512.png',
+  locale: 'auto',
+  currency: 'USD',
+  billingAddress: false,
+  panelLabel: 'Pay {{amount}}',
+};
+
+Vue.use(VueStripeCheckout, stripeOptions);
 
 Vue.config.productionTip = false;
 
