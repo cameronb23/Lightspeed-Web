@@ -54,7 +54,7 @@ export default {
             return resolve(response.body);
           }
 
-          store.commit('setToken', response.body.token);
+          store.commit('setToken', response.body);
 
           this.user.authenticated = true;
 

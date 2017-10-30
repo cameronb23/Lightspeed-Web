@@ -49,22 +49,22 @@ export const store = new Vuex.Store({
     },
   },
   mutations: {
-    setToken(state, token) {
+    setToken(state, body) {
       /* eslint-disable no-param-reassign */
-      Vue.localStorage.set('auth_token', token);
-      state.auth.token = token;
+      Vue.localStorage.set('auth', body);
+      state.auth = body;
     },
     unsetToken(state) {
-      Vue.localStorage.remove('auth_token');
-      state.auth.token = null;
+      Vue.localStorage.remove('auth');
+      state.auth = null;
     },
   },
 });
 
-const token = Vue.localStorage.get('auth_token');
+const authBody = Vue.localStorage.get('auth');
 
-if (token) {
-  store.commit('setToken', token);
+if (authBody) {
+  store.commit('setToken', authBody);
 }
 
 /* eslint-disable no-new */
