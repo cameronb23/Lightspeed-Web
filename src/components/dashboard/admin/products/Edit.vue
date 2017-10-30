@@ -77,7 +77,7 @@ export default {
 
     return axios({
       // url: `https://shielded-journey-67207.herokuapp.com/products/${productId}`,
-      url: `http://localhost:3000/products/${productId}`,
+      url: `http://shielded-journey-67207.herokuapp.com/products/${productId}`,
       method: 'GET',
       headers: {
         'x-access-token': token,

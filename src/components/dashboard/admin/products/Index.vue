@@ -182,7 +182,7 @@ export default {
       console.log(array);
 
       axios({
-        url: 'http://localhost:3000/products',
+        url: 'https://shielded-journey-67207.herokuapp.com/products',
         method: 'DELETE',
         headers: {
           'x-access-token': token,
