@@ -28,7 +28,7 @@ export default {
             return resolve(response.body);
           }
 
-          store.commit('setToken', response.body.token);
+          store.commit('setToken', response.body.credentials);
 
           this.user.authenticated = true;
 
