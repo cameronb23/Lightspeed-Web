@@ -148,6 +148,7 @@ export default {
       .then(() => {
         this.response = 'Successfully signed out';
         this.snackbar = true;
+        this.$router.push('/');
       });
     },
   },

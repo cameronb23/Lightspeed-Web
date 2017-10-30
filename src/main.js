@@ -64,7 +64,12 @@ export const store = new Vuex.Store({
 const authBody = Vue.localStorage.get('auth');
 
 if (authBody) {
-  store.commit('setToken', JSON.parse(authBody));
+  try {
+    const body = JSON.parse(authBody);
+    store.commit('setToken', body);
+  } catch (e) {
+    console.log('Couldn\'t read credentials.');
+  }
 }
 
 /* eslint-disable no-new */
