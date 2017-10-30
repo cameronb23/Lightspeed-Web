@@ -2,7 +2,8 @@
   <div>
     <h3 class="blue--text text--lighten-1">Registration</h3>
     <v-flex sm4 offset-sm4>
-      <v-form v-model="valid" ref="form" lazy-validation>
+      <v-progress-circular v-if="submitting" indeterminate color="red"></v-progress-circular>
+      <v-form v-if="!submitting" v-model="valid" ref="form" lazy-validation>
         <v-text-field
           label="First name"
           v-model="first_name"

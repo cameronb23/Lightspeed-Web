@@ -4,7 +4,8 @@
     <h3 class="blue--text text--darken-1">Current status: {{status}}</h3>
     <v-btn v-on:click="toggleForm" color="primary">Register for updates</v-btn>
     <v-flex sm4 offset-sm4 v-if="formVisible">
-      <v-form v-model="valid" ref="form" lazy-validation>
+      <v-progress-circular v-if="submitting" indeterminate color="red"></v-progress-circular>
+      <v-form v-if="!submitting" v-model="valid" ref="form" lazy-validation>
         <v-text-field
           label="Full Name"
           v-model="name"
@@ -55,7 +56,7 @@ export default {
     submitForm() {
       this.submitting = true;
       this.$http
-          .post('https://cors-anywhere.herokuapp.com/https://shielded-journey-67207.herokuapp.com/subscribe', {
+          .post('https://shielded-journey-67207.herokuapp.com/subscribe', {
             email: this.email,
             name: this.name,
           })

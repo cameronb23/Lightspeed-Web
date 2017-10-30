@@ -2,34 +2,73 @@
   <div id="app">
     <v-app dark>
       <v-container fluid="fluid" class="text-sm-center">
-        <v-layout row justify-space-between>
-          <v-flex class="text-sm-left">
+        <v-layout row wrap>
+
+
+          <v-flex order-md1 class="text-xs-left">
             <!-- Left data -->
-            <p>Current version: {{version}}</p>
+            <v-btn flat icon v-if="loggedIn" v-on:click="drawer = !drawer">
+              <v-icon>menu</v-icon>
+            </v-btn>
           </v-flex>
-          <v-flex sm8>
-            <router-link to="/">
-              <img src="https://s3.amazonaws.com/lightspeed-prod/static/android-chrome-512x512.png">
-            </router-link>
+
+          <!-- Dashboard drawer -->
+          <v-navigation-drawer temporary dark v-if="loggedIn" v-model="drawer">
+            <v-toolbar flat class="transparent">
+              <v-list class="pa-0">
+                <v-list-tile avatar>
+                  <v-list-tile-avatar>
+                    <img src="https://s3.amazonaws.com/lightspeed-prod/static/android-chrome-512x512.png" />
+                  </v-list-tile-avatar>
+                  <v-list-tile-content>
+                    <v-list-tile-title>Lightspeed Dashboard</v-list-tile-title>
+                    <v-list-tile-sub-title>Version {{version}}</v-list-tile-sub-title>
+                  </v-list-tile-content>
+                </v-list-tile>
+
+                <v-list-group v-for="item in items" v-if="!item.admin || (item.admin && admin)":value="item.active" v-bind:key="item.title">
+                  <v-list-tile slot="item" v-on:click="navigate(item.route)">
+                    <v-list-tile-action>
+                      <v-icon>{{ item.action }}</v-icon>
+                    </v-list-tile-action>
+                    <v-list-tile-content>
+                      <v-list-tile-title>{{ item.title }}</v-list-tile-title>
+                    </v-list-tile-content>
+                    <v-list-tile-action v-if="item.items">
+                      <v-icon>keyboard_arrow_down</v-icon>
+                    </v-list-tile-action>
+                  </v-list-tile>
+                  <v-list-tile v-if="item.items" v-for="subItem in item.items" v-bind:key="subItem.title" v-on:click="navigate(subItem.route)">
+                    <v-list-tile-content>
+                      <v-list-tile-title>{{ subItem.title }}</v-list-tile-title>
+                    </v-list-tile-content>
+                    <v-list-tile-action>
+                      <v-icon>{{ subItem.action }}</v-icon>
+                    </v-list-tile-action>
+                  </v-list-tile>
+                </v-list-group>
+              </v-list>
+            </v-toolbar>
+          </v-navigation-drawer>
+
+          <v-flex xs10 order-md2>
+            <router-view/>
           </v-flex>
-          <v-flex class="text-sm-right">
-            <div v-if="!loggedIn">
-              <router-link to="/signIn" tag="p">
+
+          <v-flex order-md3>
+            <div class="text-xs-right" v-if="!loggedIn">
+              <router-link to="/signIn" tag="div">
                 <v-btn color="primary">Sign In</v-btn>
               </router-link>
-              <router-link to="/register" tag="p">
+              <router-link to="/register" tag="div">
                 <v-btn color="primary">Register</v-btn>
               </router-link>
             </div>
-            <div v-if="loggedIn">
-              <router-link v-if="loggedIn" to="/dashboard" tag="p">
-                <v-btn color="primary">Dashboard</v-btn>
-              </router-link>
-              <v-btn class="text-sm-right" v-if="loggedIn" v-on:click="signOut" color="primary">Sign out</v-btn>
+            <div class="text-xs-right" v-if="loggedIn">
+              <v-btn class="text-sm-right" v-on:click="signOut" color="primary">Sign out</v-btn>
             </div>
           </v-flex>
         </v-layout>
-        <router-view/>
 
         <v-snackbar
           :timeout="timeout"
@@ -55,12 +94,16 @@ import auth from './auth';
 export default {
   name: 'app',
   computed: {
+    admin() {
+      return this.$store.state.auth.admin || true;
+    },
     loggedIn() {
       return this.$store.state.auth.token !== null;
     },
   },
   data() {
     return {
+      drawer: false,
       version: '0.0.1',
       response: '',
       snackbar: false,
@@ -68,9 +111,38 @@ export default {
       x: null,
       mode: '',
       timeout: 4000,
+      items: [
+        {
+          action: 'dashboard',
+          title: 'Dashboard',
+          route: '/dashboard',
+        },
+        {
+          action: 'check_circle',
+          title: 'Captcha Solver',
+          route: '/solver',
+        },
+        {
+          action: 'account_balance',
+          title: 'Admin',
+          admin: true,
+          items: [
+            { title: 'Products', action: 'book', route: '/admin/products' },
+            { title: 'Users', action: 'person' },
+            { title: 'Payments', action: 'payment' },
+          ],
+        },
+      ],
     };
   },
   methods: {
+    navigate(route) {
+      if (!route) {
+        return;
+      }
+
+      this.$router.push(route);
+    },
     signOut() {
       auth.logout()
       .then(() => {
@@ -86,5 +158,10 @@ export default {
 #app {
   font-family: 'Roboto';
   text-align: center;
+}
+
+.center-image {
+  width: 100%;
+  max-width: 512px;
 }
 </style>

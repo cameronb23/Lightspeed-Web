@@ -5,6 +5,7 @@ import VueResource from 'vue-resource';
 import Vuetify from 'vuetify';
 import VueLocalStorage from 'vue-localstorage';
 import VueStripeCheckout from 'vue-stripe-checkout';
+import AsyncComputed from 'vue-async-computed';
 import Vuex from 'vuex';
 import App from './App';
 import router from './router';
@@ -16,6 +17,7 @@ import router from './router';
 import('../node_modules/vuetify/dist/vuetify.min.css'); // Ensure you are using css-loader
 
 Vue.use(Vuex);
+Vue.use(AsyncComputed);
 Vue.use(VueResource);
 Vue.use(VueLocalStorage);
 Vue.use(Vuetify);

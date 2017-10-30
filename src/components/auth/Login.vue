@@ -2,7 +2,8 @@
   <div>
     <h3 class="blue--text text--lighten-1">Sign in</h3>
     <v-flex sm4 offset-sm4>
-      <v-form v-model="valid" ref="form" lazy-validation>
+      <v-progress-circular v-if="submitting" indeterminate color="red"></v-progress-circular>
+      <v-form v-if="!submitting" v-model="valid" ref="form" lazy-validation>
         <v-text-field
           label="E-mail"
           v-model="email"
@@ -72,9 +73,13 @@ export default {
       this.submitting = true;
       auth.login({ email: this.email, password: this.password }, '/')
       .then((response) => {
-        this.submitting = false;
-        this.response = response.message;
-        this.snackbar = true;
+        if (response.success) {
+          this.$router.push('/');
+        } else {
+          this.submitting = false;
+          this.response = response.message;
+          this.snackbar = true;
+        }
       });
     },
   },

@@ -6,6 +6,11 @@ import Login from '@/components/auth/Login';
 import Register from '@/components/auth/Register';
 import Purchase from '@/components/Purchase';
 
+import Admin from '@/components/dashboard/admin';
+import AdminHome from '@/components/dashboard/admin/Home';
+import AdminProducts from '@/components/dashboard/admin/products/Index';
+import EditProduct from '@/components/dashboard/admin/products/Edit';
+
 Vue.use(Router);
 
 export default new Router({
@@ -34,6 +39,20 @@ export default new Router({
       path: '/purchase',
       name: 'Purchase',
       component: Purchase,
+    },
+    {
+      path: '/admin',
+      component: Admin,
+      children: [
+        {
+          path: '',
+          component: AdminHome,
+        }, {
+          path: 'products',
+          component: Admin,
+          children: [{ path: '', component: AdminProducts }, { path: ':productId', component: EditProduct }],
+        },
+      ],
     },
   ],
 });

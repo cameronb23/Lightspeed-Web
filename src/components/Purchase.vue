@@ -1,7 +1,7 @@
 <template>
   <div>
     <h3 class="blue--text text--lighten-1">Purchase</h3>
-    <v-btn v-on:click="openCheckout" color="primary">Register for updates</v-btn>
+    <v-btn v-on:click="openCheckout" color="primary">Purchase Lightspeed</v-btn>
   </div>
 </template>
 
@@ -24,7 +24,7 @@ export default {
         },
       });
     },
-  },
+  }
 };
 </script>
 

@@ -2,7 +2,8 @@
   <div>
     <h3 class="blue--text text--darken-1">Unsubscribe</h3>
     <v-flex sm4 offset-sm4>
-      <v-form v-model="valid" ref="form" lazy-validation>
+      <v-progress-circular v-if="submitting" indeterminate color="red"></v-progress-circular>
+      <v-form v-if="!submitting" v-model="valid" ref="form" lazy-validation>
         <v-text-field
           label="E-mail"
           v-model="email"
@@ -58,7 +59,7 @@ export default {
     submitForm() {
       this.submitting = true;
       this.$http
-          .post('https://cors-anywhere.herokuapp.com/https://shielded-journey-67207.herokuapp.com/unsubscribe', {
+          .post('https://shielded-journey-67207.herokuapp.com/unsubscribe', {
             email: this.email,
           })
           .then((response) => {
