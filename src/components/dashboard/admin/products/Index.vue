@@ -57,7 +57,7 @@
             <router-link to="/admin/products/null" tag="div">
               <v-btn color="blue lighten-3">New Product</v-btn>
             </router-link>
-            <v-btn color="red darken-4">Delete Product(s)</v-btn>
+            <v-btn v-on:click="deleteItems" color="red darken-4">Delete Product(s)</v-btn>
           </v-card>
         </v-flex>
       </v-layout>
@@ -162,6 +162,52 @@ export default {
     },
     submitForm() {
       this.submitting = true;
+    },
+    deleteItems() {
+      const token = this.$store.state.auth.token;
+      const array = [];
+
+      this.selected.forEach((item) => {
+        array.push(item._id); // eslint-disable-line no-underscore-dangle
+      });
+
+      if (array.length === 0) {
+        this.response = 'No items selected!';
+        this.snackbar = true;
+        return;
+      }
+
+      this.loading = true;
+
+      console.log(array);
+
+      axios({
+        url: 'http://localhost:3000/products',
+        method: 'DELETE',
+        headers: {
+          'x-access-token': token,
+        },
+        data: {
+          ids: array,
+        },
+      })
+      .then((response) => {
+        this.loading = false;
+        const body = response.data;
+
+        if (!body.success) {
+          this.response = `Error deleting products: ${body.message}`;
+          this.snackbar = true;
+        }
+
+        this.$router.go(this.$router.currentRoute);
+        return body;
+      })
+      .catch(() => {
+        this.loading = false;
+        this.response = 'Error deleting products';
+        this.snackbar = true;
+      });
     },
   },
   mounted() {
