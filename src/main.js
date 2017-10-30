@@ -51,7 +51,7 @@ export const store = new Vuex.Store({
   mutations: {
     setToken(state, body) {
       /* eslint-disable no-param-reassign */
-      Vue.localStorage.set('auth', body);
+      Vue.localStorage.set('auth', JSON.stringify(body));
       state.auth = body;
     },
     unsetToken(state) {
@@ -64,7 +64,7 @@ export const store = new Vuex.Store({
 const authBody = Vue.localStorage.get('auth');
 
 if (authBody) {
-  store.commit('setToken', authBody);
+  store.commit('setToken', JSON.parse(authBody));
 }
 
 /* eslint-disable no-new */
