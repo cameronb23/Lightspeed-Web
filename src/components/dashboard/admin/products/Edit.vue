@@ -11,23 +11,54 @@
               v-model="formData.title"
               :rules="rules.titleRules"
               required
-            ></v-text-field>
+            />
             <v-text-field
               label="Price"
               v-model="formData.price_cents"
+              prefix="$"
+              :suffix="formData.price_currency"
               required
-            ></v-text-field>
+            />
+            <v-text-field
+              label="Description"
+              v-model="formData.description"
+              multi-line
+            />
+            <v-text-field
+              label="Media Links (separate by newline)"
+              v-model="formData.media"
+              multi-line
+            />
+            <v-checkbox
+              label="Available for Purchase"
+              v-model="formData.active"
+              required
+            />
             <v-btn
-              @click="submitForm"
+              @click="save"
               :disabled="!valid"
             >
-              Submit
+              Save
               <i class="material-icons right">check</i>
             </v-btn>
           </v-form>
         </v-card>
       </v-flex>
     </v-layout>
+
+    <v-snackbar
+      :timeout="timeout"
+      :top="y === 'top'"
+      :bottom="y === 'bottom'"
+      :right="x === 'right'"
+      :left="x === 'left'"
+      :multi-line="mode === 'multi-line'"
+      :vertical="mode === 'vertical'"
+      v-model="snackbar"
+    >
+      {{ response }}
+      <v-btn flat color="pink" @click="snackbar = false">Close</v-btn>
+    </v-snackbar>
   </v-container>
 </template>
 
@@ -53,29 +84,50 @@ export default {
           v => (v && v.length > 3) || 'Name must be at least 4 characters',
         ],
       },
+      // snackbar props
+      response: '',
+      snackbar: false,
+      y: 'top',
+      x: null,
+      mode: '',
+      timeout: 4000,
     };
   },
   methods: {
+    formatPrice() { // add @keyup="formatPrice" to component
+      this.formData.price_cents = parseInt(this.formData.price_cents, 10).toFixed(2);
+    },
     save() {
       this.submitting = true;
 
-      const url = 'http://shielded-journey-67207.herokuapp.com/products';
+      const token = this.$store.state.auth.token;
+      // let url = 'http://shielded-journey-67207.herokuapp.com/products/';
+      let url = 'http://localhost:3000/products/';
 
-      if(this.$route.params.productId) {
+      if (this.$route.params.productId) {
         url += this.$route.params.productId;
       }
 
+      const data = Object.assign({}, this.formData);
+
+      // TODO: currently requires trailing decimal and two zeros
+      data.price_cents *= 100;
+
       return axios({
-        url
+        url,
         method: (this.$route.params.productId ? 'PUT' : 'POST'),
         headers: {
           'x-access-token': token,
         },
+        data,
       })
       .then((response) => {
         this.loading = false;
-        if(response.success) {
-
+        if (response.data.success) {
+          this.response = response.data.message;
+          this.snackbar = true;
+          this.$router.push('/admin/products');
+          return;
         }
 
         this.snackbar = true;
@@ -87,8 +139,7 @@ export default {
           this.response = 'Error loading product (Authentication needed)';
           this.$router.push('/');
         } else {
-          this.response = 'Error loading product';
-          this.$router.push('/admin/products');
+          this.response = 'Error saving product';
         }
         this.snackbar = true;
       });
@@ -119,7 +170,12 @@ export default {
     })
     .then((response) => {
       this.loading = false;
-      that.formData = response.data;
+      const data = response.data;
+      let price = data.price_cents; // this represents $16.29
+      price /= 100; // cent to dollar
+      price = price.toFixed(2);
+      data.price_cents = price;
+      that.formData = data;
     })
     .catch((err) => {
       this.loading = false;
