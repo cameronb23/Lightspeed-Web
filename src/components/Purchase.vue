@@ -24,9 +24,9 @@
                 Purchase
                 <v-icon right dark>shopping_cart</v-icon>
               </v-btn>
-              <v-btn flat color="orange">
+              <v-btn flat color="orange" v-on:click="window.open(`https://twitter.com/intent/tweet?text=Purchase%20${item.title}%20by%20Cameron%20-%20${window.location.href}`, '_blank');">
                 Share
-                <v-icon right dark>share</v-icon>
+                <v-icon right dark>fa-twitter</v-icon>
               </v-btn>
             </v-card-actions>
           </v-card>
@@ -88,6 +88,7 @@ export default {
   },
   data() {
     return {
+      window,
       loading: true,
       product: null,
       response: '',
