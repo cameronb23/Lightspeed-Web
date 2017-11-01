@@ -65,7 +65,7 @@
               </router-link>
             </div>
             <div class="text-xs-right" v-if="loggedIn">
-              <v-btn class="text-sm-right" v-on:click="signOut" color="primary">Sign out</v-btn>
+              <v-btn class="text-sm-right" v-on:click="signOut" color="primary" dark>Sign out</v-btn>
             </div>
           </v-flex>
         </v-layout>
@@ -98,7 +98,7 @@ export default {
       return this.$store.state.auth.admin || true;
     },
     loggedIn() {
-      return this.$store.state.auth.token !== null;
+      return this.$store.state.auth !== null;
     },
   },
   data() {
@@ -121,6 +121,11 @@ export default {
           action: 'check_circle',
           title: 'Captcha Solver',
           route: '/solver',
+        },
+        {
+          action: 'shopping_cart',
+          title: 'Products',
+          route: '/purchase',
         },
         {
           action: 'account_balance',

@@ -1,7 +1,38 @@
 <template>
   <div>
     <h3 class="blue--text text--lighten-1">Purchase</h3>
-    <v-btn v-on:click="openCheckout" color="primary">Purchase Lightspeed</v-btn>
+
+    <v-container fluid v-bind="{ [`grid-list-sm`]: true }">
+      <v-layout row wrap>
+        <v-progress-circular v-if="loading" indeterminate color="red"></v-progress-circular>
+        <v-flex
+          xs4
+          v-if="!loading"
+          v-for="item in items"
+          :key="item._id"
+        >
+          <v-card hover tag="p" class="productcard">
+            <v-card-media contain :src="item.media[0]" height="200px" />
+            <v-card-title primary-title>
+              <div>
+                <h3 class="headline mb-0">{{ item.title }}</h3>
+                <div>{{ item.description }}</div>
+              </div>
+            </v-card-title>
+            <v-card-actions>
+              <v-btn :disabled="!item.active" v-on:click="openCheckout(item)" flat color="orange">
+                Purchase
+                <v-icon right dark>shopping_cart</v-icon>
+              </v-btn>
+              <v-btn flat color="orange">
+                Share
+                <v-icon right dark>share</v-icon>
+              </v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-flex>
+      </v-layout>
+    </v-container>
 
     <v-snackbar
       :timeout="timeout"
@@ -24,8 +55,41 @@ import axios from 'axios';
 
 export default {
   name: 'Purchase',
+  asyncComputed: {
+    items: {
+      get() {
+        const token = this.$store.state.auth.token;
+
+        return axios({
+          url: 'https://shielded-journey-67207.herokuapp.com/products',
+          method: 'GET',
+          headers: {
+            'x-access-token': token,
+          },
+        })
+        .then((response) => {
+          this.loading = false;
+          const body = response.data;
+          return body;
+        })
+        .catch((err) => {
+          this.loading = false;
+          if (err.message.includes('401')) {
+            this.response = 'Error loading products (Authentication needed)';
+          } else {
+            this.response = 'Error loading products';
+          }
+          this.snackbar = true;
+        });
+      },
+
+      default: [],
+    },
+  },
   data() {
     return {
+      loading: true,
+      product: null,
       response: '',
       snackbar: false,
       y: 'top',
@@ -35,11 +99,11 @@ export default {
     };
   },
   methods: {
-    openCheckout() {
+    openCheckout(product) {
       this.$checkout.open({
-        name: 'test purchase',
+        name: product.title,
         currency: 'USD',
-        amount: 1000,
+        amount: product.price_cents,
         token: (token) => {
           // handle the token
           console.log(token);
@@ -48,6 +112,7 @@ export default {
             method: 'POST',
             data: {
               stripeToken: token.id,
+              productId: product._id, // eslint-disable-line no-underscore-dangle
             },
           })
           .then((response) => {
@@ -77,5 +142,9 @@ export default {
 <style scoped>
 h1, h2 {
   font-weight: normal;
+}
+
+.productcard {
+  margin: 25px;
 }
 </style>
