@@ -56,8 +56,42 @@ export default {
     };
   },
   methods: {
-    submitForm() {
+    save() {
       this.submitting = true;
+
+      const url = 'http://shielded-journey-67207.herokuapp.com/products';
+
+      if(this.$route.params.productId) {
+        url += this.$route.params.productId;
+      }
+
+      return axios({
+        url
+        method: (this.$route.params.productId ? 'PUT' : 'POST'),
+        headers: {
+          'x-access-token': token,
+        },
+      })
+      .then((response) => {
+        this.loading = false;
+        if(response.success) {
+
+        }
+
+        this.snackbar = true;
+        this.response = response.data.message;
+      })
+      .catch((err) => {
+        this.loading = false;
+        if (err.message.includes('401')) {
+          this.response = 'Error loading product (Authentication needed)';
+          this.$router.push('/');
+        } else {
+          this.response = 'Error loading product';
+          this.$router.push('/admin/products');
+        }
+        this.snackbar = true;
+      });
     },
   },
   mounted() {
