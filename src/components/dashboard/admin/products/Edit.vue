@@ -101,8 +101,8 @@ export default {
       this.submitting = true;
 
       const token = this.$store.state.auth.token;
-      // let url = 'http://shielded-journey-67207.herokuapp.com/products/';
-      let url = 'http://localhost:3000/products/';
+      let url = 'http://shielded-journey-67207.herokuapp.com/products/';
+      // let url = 'http://localhost:3000/products/';
 
       if (this.$route.params.productId) {
         url += this.$route.params.productId;

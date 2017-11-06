@@ -5,6 +5,7 @@ import Unsubscribe from '@/components/Unsubscribe';
 import Login from '@/components/auth/Login';
 import Register from '@/components/auth/Register';
 import Purchase from '@/components/Purchase';
+import Captcha from '@/components/Captcha';
 
 import Admin from '@/components/dashboard/admin';
 import AdminHome from '@/components/dashboard/admin/Home';
@@ -15,6 +16,11 @@ Vue.use(Router);
 
 export default new Router({
   routes: [
+    {
+      path: '/cpt',
+      name: 'Captcha',
+      component: Captcha,
+    },
     {
       path: '/',
       name: 'Home',

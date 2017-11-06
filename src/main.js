@@ -22,8 +22,10 @@ Vue.use(VueResource);
 Vue.use(VueLocalStorage);
 Vue.use(Vuetify);
 
+const { STRIPE_PUBLISH_KEY } = process.env;
+
 const stripeOptions = {
-  key: 'pk_test_Hhpu1idXPhutYgZx8TAc2Hpt',
+  key: STRIPE_PUBLISH_KEY,
   image: 'https://s3.amazonaws.com/lightspeed-prod/static/android-chrome-512x512.png',
   locale: 'auto',
   currency: 'USD',
