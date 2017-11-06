@@ -24,6 +24,8 @@ Vue.use(Vuetify);
 
 const { STRIPE_PUBLISH_KEY } = process.env;
 
+console.log(`Starting Stripe checkout with key: "${STRIPE_PUBLISH_KEY}"`);
+
 const stripeOptions = {
   key: STRIPE_PUBLISH_KEY,
   image: 'https://s3.amazonaws.com/lightspeed-prod/static/android-chrome-512x512.png',
