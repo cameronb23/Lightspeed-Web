@@ -16,7 +16,7 @@
             <v-card-title primary-title>
               <div>
                 <h3 class="headline mb-0">{{ item.title }}</h3>
-                <div>{{ item.description }}</div>
+                <v-html>{{ item.description }}</v-html>
               </div>
             </v-card-title>
             <v-card-actions>
