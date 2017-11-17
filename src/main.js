@@ -22,10 +22,7 @@ Vue.use(VueResource);
 Vue.use(VueLocalStorage);
 Vue.use(Vuetify);
 
-const STRIPE_PUBLISH_KEY = process.env.STRIPE_PUBLISH_KEY;
-
-console.log(process.env);
-console.log(`Starting Stripe checkout with key: "${STRIPE_PUBLISH_KEY}"`);
+const { STRIPE_PUBLISH_KEY }= process.env;
 
 const stripeOptions = {
   key: STRIPE_PUBLISH_KEY,
@@ -52,6 +49,7 @@ export const store = new Vuex.Store({
     auth: {
       token: null,
     },
+    token: process.env.STRIPE_PUBLISH_KEY,
   },
   mutations: {
     setToken(state, body) {

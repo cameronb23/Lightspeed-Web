@@ -4,7 +4,6 @@
       <v-container fluid="fluid" class="text-sm-center">
         <v-layout row wrap>
 
-
           <v-flex order-md1 class="text-xs-left">
             <!-- Left data -->
             <v-btn flat icon v-if="loggedIn" v-on:click="drawer = !drawer">
@@ -94,6 +93,9 @@ import auth from './auth';
 export default {
   name: 'app',
   computed: {
+    tok() {
+      return this.$store.state.token;
+    },
     admin() {
       return this.$store.state.auth.admin || true;
     },

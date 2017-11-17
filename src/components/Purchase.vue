@@ -111,6 +111,9 @@ export default {
           axios({
             url: 'https://shielded-journey-67207.herokuapp.com/payments/create',
             method: 'POST',
+            headers: {
+              'x-access-token': this.$store.state.auth.token,
+            },
             data: {
               stripeToken: token.id,
               productId: product._id, // eslint-disable-line no-underscore-dangle
