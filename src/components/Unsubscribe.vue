@@ -59,7 +59,7 @@ export default {
     submitForm() {
       this.submitting = true;
       this.$http
-          .post('https://shielded-journey-67207.herokuapp.com/unsubscribe', {
+          .post('https://lightspeed-api.cameronb.me/unsubscribe', {
             email: this.email,
           })
           .then((response) => {

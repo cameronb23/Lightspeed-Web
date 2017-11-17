@@ -135,6 +135,7 @@ export default {
           admin: true,
           items: [
             { title: 'Products', action: 'book', route: '/admin/products' },
+            { title: 'Keys', action: 'vpn_key', route: '/admin/keys' },
             { title: 'Users', action: 'person' },
             { title: 'Payments', action: 'payment' },
           ],

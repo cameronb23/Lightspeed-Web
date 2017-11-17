@@ -10,6 +10,7 @@ import Captcha from '@/components/Captcha';
 import Admin from '@/components/dashboard/admin';
 import AdminHome from '@/components/dashboard/admin/Home';
 import AdminProducts from '@/components/dashboard/admin/products/Index';
+import AdminKeys from '@/components/dashboard/admin/Keys';
 import EditProduct from '@/components/dashboard/admin/products/Edit';
 
 Vue.use(Router);
@@ -57,6 +58,10 @@ export default new Router({
           path: 'products',
           component: Admin,
           children: [{ path: '', component: AdminProducts }, { path: ':productId', component: EditProduct }],
+        }, {
+          path: 'keys',
+          component: Admin,
+          children: [{ path: '', component: AdminKeys }],
         },
       ],
     },

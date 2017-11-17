@@ -56,7 +56,7 @@ export default {
     submitForm() {
       this.submitting = true;
       this.$http
-          .post('https://shielded-journey-67207.herokuapp.com/subscribe', {
+          .post('https://lightspeed-api.cameronb.me/subscribe', {
             email: this.email,
             name: this.name,
           })

@@ -101,7 +101,7 @@ export default {
       this.submitting = true;
 
       const token = this.$store.state.auth.token;
-      let url = 'http://shielded-journey-67207.herokuapp.com/products/';
+      let url = 'https://lightspeed-api.cameronb.me/products/';
       // let url = 'http://localhost:3000/products/';
 
       if (this.$route.params.productId) {
@@ -162,7 +162,7 @@ export default {
 
     return axios({
       // url: `https://shielded-journey-67207.herokuapp.com/products/${productId}`,
-      url: `http://shielded-journey-67207.herokuapp.com/products/${productId}`,
+      url: `https://lightspeed-api.cameronb.me/products/${productId}`,
       method: 'GET',
       headers: {
         'x-access-token': token,

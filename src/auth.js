@@ -7,7 +7,7 @@ import router from './router/index';
 
 // URL and endpoint constants
 // const API_URL = 'https://cors-anywhere.herokuapp.com/https://shielded-journey-67207.herokuapp.com';
-const API_URL = 'https://shielded-journey-67207.herokuapp.com';
+const API_URL = 'https://lightspeed-api.cameronb.me';
 const LOGIN_URL = `${API_URL}/authenticate`;
 const SIGNUP_URL = `${API_URL}/register`;
 

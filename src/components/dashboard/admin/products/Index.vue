@@ -90,7 +90,7 @@ export default {
         const token = this.$store.state.auth.token;
 
         return axios({
-          url: 'https://shielded-journey-67207.herokuapp.com/products',
+          url: 'https://lightspeed-api.cameronb.me/products',
           method: 'GET',
           headers: {
             'x-access-token': token,
@@ -182,7 +182,7 @@ export default {
       console.log(array);
 
       axios({
-        url: 'https://shielded-journey-67207.herokuapp.com/products',
+        url: 'https://lightspeed-api.cameronb.me/products',
         method: 'DELETE',
         headers: {
           'x-access-token': token,
