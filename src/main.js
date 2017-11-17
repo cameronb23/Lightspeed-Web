@@ -22,7 +22,7 @@ Vue.use(VueResource);
 Vue.use(VueLocalStorage);
 Vue.use(Vuetify);
 
-const { STRIPE_PUBLISH_KEY }= process.env;
+const { STRIPE_PUBLISH_KEY } = process.env;
 
 const stripeOptions = {
   key: STRIPE_PUBLISH_KEY,
